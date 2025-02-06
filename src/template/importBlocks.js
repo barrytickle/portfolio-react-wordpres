@@ -6,7 +6,6 @@ import { toReactComponentName } from "../app/helpers";
 
 const components = Object.keys(modules).reduce((acc, filePath) => {
 	const name = filePath.split("/").pop().replace(`.jsx`, ""); // Extract file name
-
 	acc[toReactComponentName(name)] = modules[filePath].default;
 	return acc;
 }, {});

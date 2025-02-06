@@ -1,19 +1,17 @@
 import PropTypes from "prop-types";
-import { parseRepeaterFields } from "../app/helpers";
 import { FieldFinder } from "../app/fieldFinder";
 import { buttonLooper } from "../app/ButtonLooper";
 
 const AcfHero = ({ fields }) => {
-	let parsedFields = fields;
-	parsedFields = parseRepeaterFields(parsedFields);
-
-	const fieldFinder = new FieldFinder(parsedFields);
+	const fieldFinder = new FieldFinder(fields);
 
 	const tag = fieldFinder.findField("tag");
 	const title = fieldFinder.findField("title");
 	const content = fieldFinder.findField("description");
 	const image = fieldFinder.findField("image");
 	const buttons = fieldFinder.findField("parsed_repeater");
+
+	console.log("AcfHero, buttons", buttons);
 
 	return (
 		<div className="container mx-auto">
@@ -39,7 +37,7 @@ const AcfHero = ({ fields }) => {
 								</h1>
 								<p className="mt-6 text-xl text-dark-300">{content}</p>
 							</div>
-							<div className="z-30 mt-10 sm:flex sm:justify-center lg:justify-start">
+							<div className="z-30 mt-10 sm:flex sm:justify-center lg:justify-start gap-4">
 								{buttonLooper(buttons)}
 							</div>
 						</div>
