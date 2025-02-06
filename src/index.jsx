@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Layout from "./template/layout";
 import Page from "./template/page";
-
-const url = "http://admin.local/barrytickle/";
+import { config } from "./config/config";
 
 function Index() {
 	const [pages, setPages] = useState([]);
+
+	const url = config.url;
 
 	useEffect(() => {
 		(async () => {
@@ -20,20 +21,23 @@ function Index() {
 			const data = await response.json();
 			setPages(data);
 		})();
-	}, []);
+	}, [url]);
 
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Layout pages={pages} />}>
-					{pages.map((page) => (
-						<Route
-							key={page.id}
-							path={page.slug}
-							element={<Page blocks={page.blocks} />}
-							index={page.is_homepage ? true : undefined}
-						/>
-					))}
+					{pages.map((page) => {
+						if (!page.blocks) return null;
+						return (
+							<Route
+								key={page.id}
+								path={page.url}
+								element={<Page blocks={page.blocks} />}
+								index={page.is_homepage ? true : undefined}
+							/>
+						);
+					})}
 				</Route>
 			</Routes>
 		</BrowserRouter>
