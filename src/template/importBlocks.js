@@ -1,6 +1,8 @@
 /* eslint no-multi-str: "error" */
 
-const modules = import.meta.glob(["../blocks/*.jsx"], { eager: true });
+const modules = import.meta.glob(["../components/blocks/*.jsx"], {
+	eager: true,
+});
 
 import { toReactComponentName } from "../app/helpers";
 

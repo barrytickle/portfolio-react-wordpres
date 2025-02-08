@@ -5,3 +5,9 @@
 body {
 	@apply bg-dark-900 min-h-screen text-white;
 }
+
+.content-wrapper {
+	a {
+		@apply text-dark-400 underline;
+	}
+}

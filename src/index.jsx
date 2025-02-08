@@ -12,16 +12,20 @@ function Index() {
 
 	useEffect(() => {
 		(async () => {
-			const response = await fetch(
-				`${url}/wp-json/custom/v1/all-content/page/`,
-				{
-					mode: "cors",
-				}
-			);
+			const response = await fetch(`${url}/wp-json/custom/v1/all-content/`, {
+				mode: "cors",
+			});
 			const data = await response.json();
 			setPages(data);
 		})();
 	}, [url]);
+
+	useEffect(() => {
+		if (pages.length > 0) {
+			const routes = pages.map((page) => page.url);
+			// console.log("Possible routes:", routes);
+		}
+	}, [pages]);
 
 	return (
 		<BrowserRouter>

@@ -1,17 +1,13 @@
 import PropTypes from "prop-types";
-import { FieldFinder } from "../app/fieldFinder";
-import { buttonLooper } from "../app/ButtonLooper";
+import { buttonLooper } from "../../app/ButtonLooper";
 
 const AcfHero = ({ fields }) => {
-	const fieldFinder = new FieldFinder(fields);
-
-	const tag = fieldFinder.findField("tag");
-	const title = fieldFinder.findField("title");
-	const content = fieldFinder.findField("description");
-	const image = fieldFinder.findField("image");
-	const buttons = fieldFinder.findField("parsed_repeater");
-
-	console.log("AcfHero, buttons", buttons);
+	const tag = fields.findField("tag");
+	const title = fields.findField("title");
+	const content = fields.findField("description");
+	const image = fields.findField("image");
+	const buttons = fields.findField("parsed_repeater");
+	console.log("ACF HERO", buttons);
 
 	return (
 		<div className="container mx-auto">
@@ -56,7 +52,9 @@ const AcfHero = ({ fields }) => {
 };
 
 AcfHero.propTypes = {
-	fields: PropTypes.array.isRequired,
+	fields: PropTypes.shape({
+		findField: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 export default AcfHero;

@@ -1,11 +1,6 @@
+import { config } from "../config/config";
+
 export const toReactComponentName = (fileName) => {
-	console.log(
-		"toReactComponentName",
-		fileName,
-		fileName
-			.replace(/[-_/](.)/g, (_, char) => char.toUpperCase()) // Convert kebab-case or snake_case to camelCase
-			.replace(/^(.)/, (_, char) => char.toUpperCase())
-	);
 	return fileName
 		.replace(/[-_/](.)/g, (_, char) => char.toUpperCase()) // Convert kebab-case or snake_case to camelCase
 		.replace(/^(.)/, (_, char) => char.toUpperCase()); // Capitalize the first letter
@@ -47,4 +42,14 @@ export const parseRepeaterFields = (fields) => {
 	});
 
 	return fields;
+};
+
+export const stripApiLinks = (string) => {
+	return string.replace(config.url, "/");
+};
+
+export const stripOuterTags = (htmlString) => {
+	const div = document.createElement("div");
+	div.innerHTML = htmlString.trim();
+	return div.firstChild.innerHTML;
 };

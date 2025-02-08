@@ -2,23 +2,27 @@ import PropTypes from "prop-types";
 import components from "./importBlocks"; // Adjust the path accordingly
 import { toReactComponentName } from "../app/helpers";
 import Navigation from "./navigation";
+import { FieldFinder } from "../app/fieldFinder";
 
 const Page = ({ blocks }) => {
-	console.log("comp", components);
 	return (
 		<>
 			<Navigation />
 			{blocks.map((block, index) => {
 				const name = toReactComponentName(block.block_name);
-				const Component = components[name];
-				if (!Component)
+				if (block.block_name.includes("acf/")) {
+					const Component = components[name];
+					if (!Component)
+						return (
+							<>
+								Component not found : {name}, looking for{" "}
+								{block.block_name.replace("/", "-")}.jsx
+							</>
+						);
 					return (
-						<>
-							Component not found : {name}, looking for{" "}
-							{block.block_name.replace("/", "-")}.jsx
-						</>
+						<Component key={index} fields={new FieldFinder(block.fields)} />
 					);
-				return <Component key={index} fields={block.fields} />;
+				}
 			})}
 		</>
 	);

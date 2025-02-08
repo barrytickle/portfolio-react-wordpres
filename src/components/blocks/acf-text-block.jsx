@@ -1,10 +1,9 @@
-import { FieldFinder } from "../app/fieldFinder";
-const AcfTextBlock = ({ fields }) => {
-	const fieldFinder = new FieldFinder(fields);
+import PropTypes from "prop-types";
 
-	const title = fieldFinder.findField("title");
-	const tag = fieldFinder.findField("tag");
-	const description = fieldFinder.findField("description");
+const AcfTextBlock = ({ fields }) => {
+	const title = fields.findField("title");
+	const tag = fields.findField("tag");
+	const description = fields.findField("description");
 
 	return (
 		<div className="w-full max-w-screen-xl mx-auto portfolio-wrapper text-4xl text-white  font-light mb-8">
@@ -25,6 +24,12 @@ const AcfTextBlock = ({ fields }) => {
 			</section>
 		</div>
 	);
+};
+
+AcfTextBlock.propTypes = {
+	fields: PropTypes.shape({
+		findField: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 export default AcfTextBlock;

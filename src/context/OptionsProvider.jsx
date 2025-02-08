@@ -39,8 +39,6 @@ export const OptionsProvider = ({ children }) => {
 		[options, menus]
 	);
 
-	console.log("OptionsProvider", contextValue);
-
 	return (
 		<OptionsContext.Provider value={contextValue}>
 			{children}
